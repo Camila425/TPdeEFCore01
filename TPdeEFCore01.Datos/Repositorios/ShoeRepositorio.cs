@@ -121,7 +121,7 @@ namespace TPdeEFCore01.Datos.Repositorios
             {
                 ShoeId = s.ShoeId,
                 Descripcion = s.Description,
-                BrandName = s.brand?.BrandName ?? "N/A", 
+                BrandName = s.brand?.BrandName ?? "N/A",
                 GenreName = s.genre?.GenreName ?? "N/A",
                 SportName = s.sport?.SportName ?? "N/A",
                 ColorName = s.color?.ColorName ?? "N/A",
@@ -149,7 +149,7 @@ namespace TPdeEFCore01.Datos.Repositorios
             {
                 ShoeId = s.ShoeId,
                 Descripcion = s.Description,
-                BrandName = s.brand?.BrandName ?? "N/A", 
+                BrandName = s.brand?.BrandName ?? "N/A",
                 GenreName = s.genre?.GenreName ?? "N/A",
                 SportName = s.sport?.SportName ?? "N/A",
                 ColorName = s.color?.ColorName ?? "N/A",
@@ -313,7 +313,7 @@ namespace TPdeEFCore01.Datos.Repositorios
                .FirstOrDefault(s => s.ShoeId == ShoeId);
         }
 
-      
+
 
         public Shoe? GetShoePorId(int shoeId, bool incluyeSize)
         {
@@ -326,13 +326,17 @@ namespace TPdeEFCore01.Datos.Repositorios
             return Query.FirstOrDefault(s => s.ShoeId == shoeId);
         }
 
-        public List<Size>? GetSizePorShoes(int shoeId)
+        public List<SizeStockDto>? GetSizePorShoes(int shoeId)
         {
             return _dbContext.shoeSizes
-                .Include(s => s.size)
-                .Where(ss => ss.ShoeId == shoeId)
-                .Select(ss => ss.size)
-                .ToList();
+                   .Include(ss => ss.size)
+           .Where(ss => ss.ShoeId == shoeId)
+           .Select(ss => new SizeStockDto
+           {
+               SizeNumber = ss.size.SizeNumber,
+               QuantityInStock = ss.QuantityInStock
+           }).ToList();
+         
         }
 
         public bool ExisteRelacion(Shoe shoe, Size talle)
@@ -363,35 +367,6 @@ namespace TPdeEFCore01.Datos.Repositorios
         {
             _dbContext.Set<ShoeSizes>().Add(nuevaRelacion);
         }
-
-        public List<ShoeListDto> ObtenerZapatosConMenosDelMaximoDeTalles()
-        {
-            int maxTallas = _dbContext.shoes
-                .Select(s => s.shoeSizes.Count)
-                .ToList() 
-                .DefaultIfEmpty(0)
-                .Max();
-
-            return _dbContext.shoes
-                .Include(b => b.brand)
-                .Include(g => g.genre)
-                .Include(s => s.sport)
-                .Include(c => c.color)
-                .Where(s => s.shoeSizes.Count < maxTallas)
-                .Select(s => new ShoeListDto
-                {
-                    ShoeId = s.ShoeId,
-                    Descripcion = s.Description,
-                    BrandName = s.brand == null ? "N/A" : s.brand.BrandName,
-                    GenreName = s.genre == null ? "N/A" : s.genre.GenreName,
-                    SportName = s.sport == null ? "N/A" : s.sport.SportName,
-                    ColorName = s.color == null ? "N/A" : s.color.ColorName,
-                    Model = s.Model,
-                    Price = s.Price
-                })
-                .ToList();
-        }
-
         public List<Size> GetTallesPorZapato(int shoeId)
         {
             return _dbContext.shoeSizes
@@ -400,15 +375,31 @@ namespace TPdeEFCore01.Datos.Repositorios
                      .ToList();
         }
 
-        public int GetObtenerelmaximonumerodetalles()
+        public bool ExisteShoeSize(ShoeSizes shoeSize)
         {
-            int maxTallas = _dbContext.shoes
-            .Select(s => s.shoeSizes.Count)
-            .ToList() 
-            .DefaultIfEmpty(0)
-            .Max();
-            return maxTallas;
+            return _dbContext.shoeSizes.Any(s => s.ShoeId == shoeSize.ShoeId && s.SizeId == shoeSize.SizeId);
         }
 
+        public void AgregarStock(ShoeSizes shoeSizes)
+        {
+            var existShoeSize = _dbContext.shoeSizes.FirstOrDefault(s => s.ShoeId == shoeSizes.ShoeId
+            && s.SizeId == shoeSizes.SizeId);
+            if (existShoeSize != null)
+            {
+                existShoeSize.QuantityInStock += shoeSizes.QuantityInStock;
+                _dbContext.shoeSizes.Update(existShoeSize);
+            }
+            else
+            {
+                Console.WriteLine("El registro ShoeSize no existe");
+            }
+
+        }
+
+        public ShoeSizes? GetShoeSizeId(int shoeId, int sizeId)
+        {
+            return _dbContext.shoeSizes.FirstOrDefault(s => s.ShoeId == shoeId && s.SizeId == sizeId);
+
+        }
     }
 }

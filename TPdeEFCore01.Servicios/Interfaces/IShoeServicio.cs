@@ -22,13 +22,14 @@ namespace TPdeEFCore01.Servicios.Interfaces
         List<Sport>? GetDeportesPorGenero(int genreId);
         List<ShoeListDto>? BuscarMarcaEntreDosPrecios(Brand marca, decimal precioMin, decimal precioMax);
         Shoe? GetShoePorId(int shoeId,bool IncluyeSize=false);
-        List<Size>? GetSizePorShoes(int shoeId);
+        List<SizeStockDto>? GetSizePorShoes(int shoeId);
         bool ExisteRelacion(Shoe shoe, Size talle);
         void EliminarTalleDeZapato(Shoe shoe, Size talle);
         void GuardarConTalle(Shoe zapato, Size nuevoTalle);
         void AsignarTallesAZapato(Shoe zapatoSinTalle, Size nuevoTalle);
-        List<ShoeListDto> ObtenerZapatosConMenosDelMaximoDeTalles();
         List<Size> GetTallesPorZapato(int shoeId);
-        int GetObtenerelmaximonumerodetalles();
+        bool ExisteShoeSize(ShoeSizes ShoeSizes);
+        void GuardarStock(ShoeSizes zapato);
+        ShoeSizes? GetShoeSizeId(int shoeId, int sizeId);
     }
 }

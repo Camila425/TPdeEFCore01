@@ -61,6 +61,11 @@ namespace TPdeEFCore01.Windows.Helpers
                 case Size size:
                     r.Cells[0].Value = size.SizeNumber;
                     break;
+                case SizeStockDto sizeStockDto:
+                    r.Cells[0].Value = sizeStockDto.SizeNumber;
+                    r.Cells[1].Value = sizeStockDto.QuantityInStock;
+
+                    break;
                 default:
                     break;
 

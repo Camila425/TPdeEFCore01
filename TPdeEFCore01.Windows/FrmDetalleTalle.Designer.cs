@@ -30,6 +30,7 @@
         {
             DatosdataGridView = new DataGridView();
             ColTalle = new DataGridViewTextBoxColumn();
+            colstock = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)DatosdataGridView).BeginInit();
             SuspendLayout();
             // 
@@ -38,7 +39,7 @@
             DatosdataGridView.AllowUserToAddRows = false;
             DatosdataGridView.AllowUserToDeleteRows = false;
             DatosdataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            DatosdataGridView.Columns.AddRange(new DataGridViewColumn[] { ColTalle });
+            DatosdataGridView.Columns.AddRange(new DataGridViewColumn[] { ColTalle, colstock });
             DatosdataGridView.Dock = DockStyle.Fill;
             DatosdataGridView.Location = new Point(0, 0);
             DatosdataGridView.Name = "DatosdataGridView";
@@ -53,6 +54,13 @@
             ColTalle.HeaderText = "Talle";
             ColTalle.Name = "ColTalle";
             ColTalle.ReadOnly = true;
+            // 
+            // colstock
+            // 
+            colstock.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            colstock.HeaderText = "Stock";
+            colstock.Name = "colstock";
+            colstock.ReadOnly = true;
             // 
             // FrmDetalleTalle
             // 
@@ -70,5 +78,6 @@
 
         private DataGridView DatosdataGridView;
         private DataGridViewTextBoxColumn ColTalle;
+        private DataGridViewTextBoxColumn colstock;
     }
 }

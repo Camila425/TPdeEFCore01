@@ -197,7 +197,7 @@ namespace TPdeEFCore01.Windows
 
         private void Primerobutton_Click(object sender, EventArgs e)
         {
-           paginaActual = 0;
+            paginaActual = 0;
             PaginascomboBox.SelectedIndex = paginaActual;
             listaShoe = _servicio.GetListaPaginada(paginaActual, cantidadPorPagina, orden, BrandFiltro, GenreFiltro, SportFiltro);
             MostrarDatosEnGrilla();
@@ -248,9 +248,9 @@ namespace TPdeEFCore01.Windows
         {
             FiltrarOn = false;
             FltrarrtoolStripButton.Enabled = true;
-            BrandFiltro = null; 
-            GenreFiltro = null; 
-            SportFiltro = null; 
+            BrandFiltro = null;
+            GenreFiltro = null;
+            SportFiltro = null;
             RecargarGrilla();
             FltrarrtoolStripButton.BackColor = SystemColors.Control;
             BuscarMaryDeptoolStripButton.BackColor = SystemColors.Control;
@@ -426,7 +426,6 @@ namespace TPdeEFCore01.Windows
             BuscarMarcaEntreDosPreciostoolStripButton.BackColor = SystemColors.Control;
             BuscarMaryDeptoolStripButton.BackColor = SystemColors.Control;
             GeneroYDeportetoolStripButton.BackColor = SystemColors.Control;
-            MarcaYGenerotoolStripButton.BackColor = SystemColors.Control;
             FltrarrtoolStripButton.Enabled = true;
             FltrarrtoolStripButton.BackColor = SystemColors.Control;
 
@@ -473,21 +472,28 @@ namespace TPdeEFCore01.Windows
             {
                 return;
             }
+
             var r = DatosdataGridView.SelectedRows[0];
-            if (r.Tag is null)
+            if (r.Tag is not ShoeListDto shoeListDto)
             {
                 return;
             }
-            ShoeListDto shoeListDto = (ShoeListDto)r.Tag;
-            List<Size>? talles = _servicio.GetSizePorShoes(shoeListDto.ShoeId);
-            if (talles is null || talles.Count == 0)
+
+            List<SizeStockDto>? talles = _servicio.GetSizePorShoes(shoeListDto.ShoeId);
+
+            if (talles == null || talles.Count == 0)
             {
                 MessageBox.Show("Zapato sin Talles asignados", "Advertencia", MessageBoxButtons.OK,
                     MessageBoxIcon.Warning);
                 return;
             }
-            FrmDetalleTalle frm = new FrmDetalleTalle() { Text = $"Talles del Zapato-{shoeListDto.Descripcion}" +
-                $"-{shoeListDto.Model}" };
+
+            
+            FrmDetalleTalle frm = new FrmDetalleTalle()
+            {
+                Text = $"Talles del Zapato - {shoeListDto.Descripcion} - {shoeListDto.Model}"
+            };
+
             frm.SetDatos(talles);
             frm.ShowDialog(this);
         }
@@ -630,5 +636,7 @@ namespace TPdeEFCore01.Windows
             MostrarZapatoOrdenado();
 
         }
+
+
     }
 }

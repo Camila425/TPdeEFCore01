@@ -63,6 +63,9 @@ namespace TPdeEFCore01.Consola
                 Console.WriteLine("51. Asignar Talle a Zapato");
                 Console.WriteLine("52. Ordenar por precio");
                 Console.WriteLine("53. Ordenar por Talles");
+                Console.WriteLine("54. Ingresar stock de cada Zapato ");
+
+
 
                 Console.WriteLine("===============================");
                 Console.WriteLine("60. Listado de Size");
@@ -195,6 +198,10 @@ namespace TPdeEFCore01.Consola
                     case "53":
                         ListaOrdenadoPorTalle();
                         break;
+                    case "54":
+                        IngresarStockZapato();
+                        break;
+
 
                     case "60":
                         ListaDeSize();
@@ -229,6 +236,91 @@ namespace TPdeEFCore01.Consola
             }
         }
 
+        private static void IngresarStockZapato()
+        {
+            Console.Clear();
+            var servicioZapatos = serviceProvider?.GetService<IShoeServicio>();
+
+            if (servicioZapatos != null)
+            {
+                var zapatoStock = ActualizarStock();
+                if (zapatoStock != null)
+                {
+                    var zapatoStockExiste = servicioZapatos.GetShoeSizeId(zapatoStock.ShoeId, zapatoStock.SizeId);
+
+                    if (zapatoStockExiste != null)
+                    {
+                        zapatoStock.ShoeSizeId = zapatoStockExiste.ShoeSizeId;
+                        servicioZapatos.GuardarStock(zapatoStock);
+                        Console.WriteLine("Stock Agregado!!!");
+                    }
+                    else
+                    {
+                        Console.WriteLine("el zapato no existe!!!");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Error al ingresar stock del zapato");
+                }
+            }
+            else
+            {
+                Console.WriteLine("El servicio de Zapato es nulo");
+            }
+            Thread.Sleep(2000);
+        }
+        private static ShoeSizes ActualizarStock()
+        {
+            var servicioshoe = serviceProvider?.GetService<IShoeServicio>();
+            var servicioSize = serviceProvider?.GetService<ISizeServicio>();
+
+            if (servicioshoe == null || servicioSize == null)
+            {
+                Console.WriteLine("Error: Servicios no disponibles");
+            }
+
+            Console.WriteLine("Agregar Stock");
+            ListaZapato();
+
+            var listaZapatos = servicioshoe?.GetLista().Select(s => s.ShoeId.ToString()).ToList();
+            var selectShoeId = ConsoleExtensions.GetValidOptions("Seleccione el Zapato a actualizar el Stock:", listaZapatos);
+            var shoeId = Convert.ToInt32(selectShoeId);
+            var shoe = servicioshoe.GetShoeId(shoeId);
+
+            if (shoe == null)
+            {
+                Console.WriteLine("Zapato no encontrado");
+            }
+
+            ListaDeSize();
+
+            var listaSizes = servicioSize?.GetLista().Select(s => s.SizeId.ToString()).ToList();
+            var selectSizeId = ConsoleExtensions.GetValidOptions("Seleccione un Talle a actualizar el stock:", listaSizes);
+            var sizeId = Convert.ToInt32(selectSizeId);
+            var size = servicioSize?.GetSizeId(sizeId);
+
+            if (size == null)
+            {
+                Console.WriteLine("Talle no encontrado");
+            }
+
+            var quantityInStock = ConsoleExtensions.ReadInt("Ingrese el Stock:", 1, 10000);
+
+            var shoeSize = new ShoeSizes
+            {
+                ShoeId = shoeId,
+                shoe = shoe,
+                SizeId = sizeId,
+                size = size,
+                QuantityInStock = quantityInStock
+            };
+
+            return shoeSize;
+        }
+
+
+
         private static void ListaOrdenadoPorTalle()
         {
             Console.Clear();
@@ -237,7 +329,7 @@ namespace TPdeEFCore01.Consola
             var orden = ConsoleExtensions.GetValidOptions("(A)scendente (D)escendente:", new List<string> { "A", "D" });
             var servicio = serviceProvider?.GetService<ISizeServicio>();
 
-            cantidadPorPagina = ConsoleExtensions.ReadInt("Ingrese la cantidad por pagina:",10, 20);
+            cantidadPorPagina = ConsoleExtensions.ReadInt("Ingrese la cantidad por pagina:", 10, 20);
             var Cantregistros = servicio?.GetCantidad() ?? 0;
             var Paginas = CalcularCantidadPaginas(Cantregistros, cantidadPorPagina);
 
@@ -317,26 +409,18 @@ namespace TPdeEFCore01.Consola
                 Console.WriteLine("Servicios no disponibles");
                 return;
             }
-            var maxTallas = ZapatoService.GetObtenerelmaximonumerodetalles();
 
-            var ZapatosConMenosDelMaxTalles = ZapatoService.ObtenerZapatosConMenosDelMaximoDeTalles();
-            if (ZapatosConMenosDelMaxTalles.Count > 0)
+            var ListZapatos = ZapatoService.GetListaDto();
+            if (ListZapatos.Count > 0)
             {
-                MostrarListaZapatos(ZapatosConMenosDelMaxTalles);
+                MostrarListaZapatos(ListZapatos);
                 var opcionZapato = ConsoleExtensions.GetValidOptions("Seleccione un Zapato:",
-                ZapatosConMenosDelMaxTalles.Select(s => s.ShoeId.ToString()).ToList());
+                ListZapatos.Select(s => s.ShoeId.ToString()).ToList());
 
                 var ZapatoSeleccionado = ZapatoService.GetShoePorId(Convert.ToInt32(opcionZapato));
 
                 if (ZapatoSeleccionado != null)
                 {
-                    var tallesAsignados = ZapatoService.GetTallesPorZapato(ZapatoSeleccionado.ShoeId);
-                    if (tallesAsignados.Count >= maxTallas)
-                    {
-                        Console.WriteLine("El zapato ya tiene todos los talles disponibles." +
-                            " No se pueden asignar mas talles");
-                        return;
-                    }
                     Console.WriteLine("Zapato encontrado:");
                     Console.WriteLine($"ID:{ZapatoSeleccionado.ShoeId}");
                     Console.WriteLine($"Descripcion:{ZapatoSeleccionado.Description}-{ZapatoSeleccionado.Model}");
@@ -384,7 +468,6 @@ namespace TPdeEFCore01.Consola
             {
                 Console.WriteLine("No hay zapatos disponibles.");
             }
-            Console.WriteLine("Talle Agregado!");
             ConsoleExtensions.EsperaEnter();
         }
 
@@ -1402,7 +1485,7 @@ namespace TPdeEFCore01.Consola
                 }
                 else
                 {
-                    Console.WriteLine("Registro existente!");
+                    Console.WriteLine("Color No Existe!");
                 }
             }
             catch (Exception ex)
@@ -1814,14 +1897,15 @@ namespace TPdeEFCore01.Consola
         private static void BorrarBrand()
         {
             Console.Clear();
-            Console.WriteLine("Ingreso de Brand a Borrar");
-            var TipoDescripcion = ConsoleExtensions.ReadString("Ingrese Descripcion del Brand:");
+            Console.WriteLine("Borrar Marca");
+            ListaDeBrand();
+            var BrandId = ConsoleExtensions.ReadInt("Ingrese ID del Brand:");
 
             try
             {
                 var servicio = serviceProvider?.GetService<IBrandServicio>();
 
-                var Brand = servicio?.GetBrandPorNombre(TipoDescripcion);
+                var Brand = servicio?.GetBrandId(BrandId);
                 if (Brand != null)
                 {
                     if (servicio != null)
@@ -1852,53 +1936,46 @@ namespace TPdeEFCore01.Consola
                 throw;
             }
             Thread.Sleep(5000);
-
         }
 
         private static void EditarBrand()
         {
             Console.Clear();
-            Console.WriteLine("Ingreso De Brand a Editar");
-            var TipoDescripcion = ConsoleExtensions.ReadString("Ingreso Nombre de Brand:");
+            var servicio = serviceProvider?.GetService<IBrandServicio>();
 
-            try
+            Console.WriteLine("Editar Marca");
+            ListaDeBrand();
+            var IdEditar = ConsoleExtensions.ReadInt("Ingrese Id a editar:");
+            var BrandEnDb = servicio?.GetBrandId(IdEditar);
+            if (BrandEnDb != null)
             {
-                var servicio = serviceProvider?.GetService<IBrandServicio>();
-                var Brand = servicio?.GetBrandPorNombre(TipoDescripcion);
-
-                if (Brand != null)
+                Console.WriteLine($"Descripcion anterior:{BrandEnDb.BrandName}");
+                var NuevaDescripcion = ConsoleExtensions.ReadString("Ingrese el nuevo Nombre para la Marca:");
+                BrandEnDb.BrandName = NuevaDescripcion;
+                if (servicio != null)
                 {
-                    Console.WriteLine($"Brand:{Brand.BrandName}");
-                    var OtraDesc = ConsoleExtensions.ReadString("Ingrese el nuevo Nombre para la Marca:");
-                    Brand.BrandName = OtraDesc;
-                    if (servicio != null)
+                    if (!servicio.Existe(BrandEnDb))
                     {
-                        if (!servicio.Existe(Brand))
-                        {
-                            servicio.Guardar(Brand);
-                            Console.WriteLine("Registro Modificado!");
-                        }
-                        else
-                        {
-                            Console.WriteLine("Registro Duplicado");
-
-                        }
+                        servicio.Guardar(BrandEnDb);
+                        Console.WriteLine("Registro Modificado!");
                     }
                     else
                     {
-                        throw new Exception("Servicio no disponible");
+                        Console.WriteLine("Registro Duplicado");
 
                     }
                 }
                 else
                 {
-                    Console.WriteLine("Registro Inexistente!");
+                    throw new Exception("Servicio no disponible");
+
                 }
             }
-            catch (Exception ex)
+            else
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine("Registro Inexistente!");
             }
+
             Thread.Sleep(5000);
         }
 

@@ -1,18 +1,18 @@
-﻿using TPdeEFCore01.Windows.Helpers;
-using Size = TPdeEFCore01.Entidades.Size;
+﻿using TPdeEFCore01.Entidades;
+using TPdeEFCore01.Windows.Helpers;
 
 namespace TPdeEFCore01.Windows
 {
     public partial class FrmDetalleTalle : Form
     {
-        private List<Size>? Talles;
+        private List<SizeStockDto>? Talles;
 
         public FrmDetalleTalle()
         {
             InitializeComponent();
         }
 
-        public void SetDatos(List<Size> talles)
+        public void SetDatos(List<SizeStockDto> talles)
         {
             this.Talles = talles;
         }

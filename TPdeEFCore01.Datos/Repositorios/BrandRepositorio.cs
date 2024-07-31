@@ -45,7 +45,8 @@ namespace TPdeEFCore01.Datos.Repositorios
 
         public Brand? GetBrandId(int brandId)
         {
-            return _dbContext.Brands.SingleOrDefault(b => b.BrandId == brandId);
+           return _dbContext.Brands.SingleOrDefault(b => b.BrandId == brandId);
+
         }
 
         public Brand? GetBrandPorNuevaDesc(string nuevaDescripcion)
@@ -73,9 +74,7 @@ namespace TPdeEFCore01.Datos.Repositorios
 
         public List<Brand> GetLista()
         {
-            return _dbContext.Brands
-                .OrderBy(b => b.BrandId)
-                .ToList();
+            return _dbContext.Brands.OrderBy(b => b.BrandId).ToList();
         }
 
         public List<Brand> GetListaPaginada(int paginas, int cantidadPorPagina)

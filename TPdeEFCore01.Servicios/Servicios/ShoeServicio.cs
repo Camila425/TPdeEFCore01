@@ -35,6 +35,8 @@ namespace TPdeEFCore01.Servicios.Servicios
                     };
 
                     _repository.AsignarTalleAZapato(nuevaRelacion);
+                    Console.WriteLine("Talle Agregado!!!");
+
                     _unitOfWork.Commit();
                 }
                 catch (Exception)
@@ -111,6 +113,20 @@ namespace TPdeEFCore01.Servicios.Servicios
             try
             {
                 return _repository.ExisteRelacion(shoe, talle);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public bool ExisteShoeSize(ShoeSizes ShoeSize)
+        {
+            try
+            {
+                return _repository.ExisteShoeSize(ShoeSize);
+
             }
             catch (Exception)
             {
@@ -210,7 +226,7 @@ namespace TPdeEFCore01.Servicios.Servicios
         {
             try
             {
-                return _repository.GetListaPaginada(paginaActual, cantidadPorPagina, orden,brandFiltro,
+                return _repository.GetListaPaginada(paginaActual, cantidadPorPagina, orden, brandFiltro,
                     GenreFiltro, SportFiltro);
             }
             catch (Exception)
@@ -220,6 +236,7 @@ namespace TPdeEFCore01.Servicios.Servicios
             }
         }
 
+      
         public Shoe? GetShoeId(int ShoeId)
         {
             return _repository.GetShoeId(ShoeId);
@@ -238,9 +255,20 @@ namespace TPdeEFCore01.Servicios.Servicios
             }
         }
 
-      
+        public ShoeSizes? GetShoeSizeId(int shoeId, int sizeId)
+        {
+            try
+            {
+                return _repository.GetShoeSizeId(shoeId, sizeId);
+            }
+            catch (Exception)
+            {
 
-        public List<Size>? GetSizePorShoes(int shoeId)
+                throw;
+            }
+        }
+
+        public List<SizeStockDto>? GetSizePorShoes(int shoeId)
         {
             try
             {
@@ -258,10 +286,6 @@ namespace TPdeEFCore01.Servicios.Servicios
             return _repository.GetTallesPorZapato(shoeId);
         }
 
-        public List<ShoeListDto> ObtenerZapatosConMenosDelMaximoDeTalles()
-        {
-            return _repository.ObtenerZapatosConMenosDelMaximoDeTalles();
-        }
 
         public void Guardar(Shoe Shoe)
         {
@@ -307,18 +331,19 @@ namespace TPdeEFCore01.Servicios.Servicios
             }
         }
 
-        public int GetObtenerelmaximonumerodetalles()
+        public void GuardarStock(ShoeSizes ShoeSizes)
         {
             try
             {
-                return _repository.GetObtenerelmaximonumerodetalles();
+                _unitOfWork.BeginTransaction();
+                _repository.AgregarStock(ShoeSizes);
+                _unitOfWork.Commit();
             }
             catch (Exception)
             {
-
+                _unitOfWork.Rollback();
                 throw;
             }
         }
-
     }
 }

@@ -60,7 +60,7 @@
             // Cancelarbutton
             // 
             Cancelarbutton.Image = Properties.Resources.cancelar;
-            Cancelarbutton.Location = new Point(276, 439);
+            Cancelarbutton.Location = new Point(276, 456);
             Cancelarbutton.Name = "Cancelarbutton";
             Cancelarbutton.Size = new Size(126, 53);
             Cancelarbutton.TabIndex = 11;
@@ -72,7 +72,7 @@
             // OKbutton
             // 
             OKbutton.Image = Properties.Resources.ok;
-            OKbutton.Location = new Point(89, 439);
+            OKbutton.Location = new Point(89, 456);
             OKbutton.Name = "OKbutton";
             OKbutton.Size = new Size(126, 53);
             OKbutton.TabIndex = 10;
@@ -301,7 +301,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(483, 504);
+            ClientSize = new Size(483, 515);
             ControlBox = false;
             Controls.Add(AgregarUnNuevoColorbutton);
             Controls.Add(AgregarUnNuevoDeportebutton);

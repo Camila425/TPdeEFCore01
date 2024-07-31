@@ -47,7 +47,6 @@
             toolStripSeparator2 = new ToolStripSeparator();
             BuscarMaryDeptoolStripButton = new ToolStripButton();
             GeneroYDeportetoolStripButton = new ToolStripButton();
-            MarcaYGenerotoolStripButton = new ToolStripButton();
             TallestoolStripButton = new ToolStripButton();
             AsignarTalletoolStripButton = new ToolStripButton();
             EliminarTalletoolStripButton = new ToolStripButton();
@@ -109,7 +108,7 @@
             // 
             // toolStrip1
             // 
-            toolStrip1.Items.AddRange(new ToolStripItem[] { NuevotoolStripButton, BorrartoolStripButton, EditartoolStripButton, toolStripSeparator1, FltrarrtoolStripButton, ActualizartoolStripButton, BuscarMarcaEntreDosPreciostoolStripButton, toolStripSeparator2, BuscarMaryDeptoolStripButton, GeneroYDeportetoolStripButton, MarcaYGenerotoolStripButton, TallestoolStripButton, AsignarTalletoolStripButton, EliminarTalletoolStripButton, OrdentoolStripButton });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { NuevotoolStripButton, BorrartoolStripButton, EditartoolStripButton, toolStripSeparator1, FltrarrtoolStripButton, ActualizartoolStripButton, BuscarMarcaEntreDosPreciostoolStripButton, toolStripSeparator2, BuscarMaryDeptoolStripButton, GeneroYDeportetoolStripButton, TallestoolStripButton, AsignarTalletoolStripButton, EliminarTalletoolStripButton, OrdentoolStripButton });
             toolStrip1.Location = new Point(0, 0);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.Size = new Size(808, 58);
@@ -255,24 +254,14 @@
             GeneroYDeportetoolStripButton.TextImageRelation = TextImageRelation.ImageAboveText;
             GeneroYDeportetoolStripButton.Click += GeneroYDeportetoolStripButton_Click;
             // 
-            // MarcaYGenerotoolStripButton
-            // 
-            MarcaYGenerotoolStripButton.Image = (Image)resources.GetObject("MarcaYGenerotoolStripButton.Image");
-            MarcaYGenerotoolStripButton.ImageScaling = ToolStripItemImageScaling.None;
-            MarcaYGenerotoolStripButton.ImageTransparentColor = Color.Magenta;
-            MarcaYGenerotoolStripButton.Name = "MarcaYGenerotoolStripButton";
-            MarcaYGenerotoolStripButton.Size = new Size(65, 55);
-            MarcaYGenerotoolStripButton.Text = "Mar y Gen";
-            MarcaYGenerotoolStripButton.TextImageRelation = TextImageRelation.ImageAboveText;
-            // 
             // TallestoolStripButton
             // 
             TallestoolStripButton.Image = (Image)resources.GetObject("TallestoolStripButton.Image");
             TallestoolStripButton.ImageScaling = ToolStripItemImageScaling.None;
             TallestoolStripButton.ImageTransparentColor = Color.Magenta;
             TallestoolStripButton.Name = "TallestoolStripButton";
-            TallestoolStripButton.Size = new Size(39, 55);
-            TallestoolStripButton.Text = "Talles";
+            TallestoolStripButton.Size = new Size(107, 55);
+            TallestoolStripButton.Text = "Cant Shoes xTalles";
             TallestoolStripButton.TextImageRelation = TextImageRelation.ImageAboveText;
             TallestoolStripButton.Click += TallestoolStripButton_Click;
             // 
@@ -312,28 +301,28 @@
             // aZToolStripMenuItem
             // 
             aZToolStripMenuItem.Name = "aZToolStripMenuItem";
-            aZToolStripMenuItem.Size = new Size(180, 22);
+            aZToolStripMenuItem.Size = new Size(145, 22);
             aZToolStripMenuItem.Text = "A-Z";
             aZToolStripMenuItem.Click += aZToolStripMenuItem_Click;
             // 
             // zAToolStripMenuItem
             // 
             zAToolStripMenuItem.Name = "zAToolStripMenuItem";
-            zAToolStripMenuItem.Size = new Size(180, 22);
+            zAToolStripMenuItem.Size = new Size(145, 22);
             zAToolStripMenuItem.Text = "Z-A";
             zAToolStripMenuItem.Click += zAToolStripMenuItem_Click;
             // 
             // menorPrecioToolStripMenuItem
             // 
             menorPrecioToolStripMenuItem.Name = "menorPrecioToolStripMenuItem";
-            menorPrecioToolStripMenuItem.Size = new Size(180, 22);
+            menorPrecioToolStripMenuItem.Size = new Size(145, 22);
             menorPrecioToolStripMenuItem.Text = "Menor Precio";
             menorPrecioToolStripMenuItem.Click += menorPrecioToolStripMenuItem_Click;
             // 
             // mayorPrecioToolStripMenuItem
             // 
             mayorPrecioToolStripMenuItem.Name = "mayorPrecioToolStripMenuItem";
-            mayorPrecioToolStripMenuItem.Size = new Size(180, 22);
+            mayorPrecioToolStripMenuItem.Size = new Size(145, 22);
             mayorPrecioToolStripMenuItem.Text = "Mayor Precio";
             mayorPrecioToolStripMenuItem.Click += mayorPrecioToolStripMenuItem_Click;
             // 
@@ -535,7 +524,6 @@
         private ToolStripComboBox DeportestoolStripComboBox;
         private ToolStripButton BuscarMaryDeptoolStripButton;
         private ToolStripButton GeneroYDeportetoolStripButton;
-        private ToolStripButton MarcaYGenerotoolStripButton;
         private ToolStripButton ActualizartoolStripButton;
         private ToolStripButton BuscarMarcaEntreDosPreciostoolStripButton;
         private DataGridViewTextBoxColumn ColDescripcion;

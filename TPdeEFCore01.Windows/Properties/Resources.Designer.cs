@@ -183,6 +183,16 @@ namespace TPdeEFCore01.Windows.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap tasklist_36px {
+            get {
+                object obj = ResourceManager.GetObject("tasklist_36px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap todo_list_36px {
             get {
                 object obj = ResourceManager.GetObject("todo_list_36px", resourceCulture);
