@@ -280,29 +280,29 @@ namespace TPdeEFCore01.Consola
                 Console.WriteLine("Error: Servicios no disponibles");
             }
 
-            Console.WriteLine("Agregar Stock");
-            ListaZapato();
-
-            var listaZapatos = servicioshoe?.GetLista().Select(s => s.ShoeId.ToString()).ToList();
-            var selectShoeId = ConsoleExtensions.GetValidOptions("Seleccione el Zapato a actualizar el Stock:", listaZapatos);
-            var shoeId = Convert.ToInt32(selectShoeId);
-            var shoe = servicioshoe.GetShoeId(shoeId);
-
-            if (shoe == null)
-            {
-                Console.WriteLine("Zapato no encontrado");
-            }
-
+            Console.WriteLine("Agregar Stock al Talle");
             ListaDeSize();
 
             var listaSizes = servicioSize?.GetLista().Select(s => s.SizeId.ToString()).ToList();
-            var selectSizeId = ConsoleExtensions.GetValidOptions("Seleccione un Talle a actualizar el stock:", listaSizes);
+            var selectSizeId = ConsoleExtensions.GetValidOptions("Seleccione el Id del  Talle para actualizar el stock:", listaSizes);
             var sizeId = Convert.ToInt32(selectSizeId);
             var size = servicioSize?.GetSizeId(sizeId);
 
             if (size == null)
             {
                 Console.WriteLine("Talle no encontrado");
+            }
+
+            ListaZapato();
+
+            var listaZapatos = servicioshoe?.GetLista().Select(s => s.ShoeId.ToString()).ToList();
+            var selectShoeId = ConsoleExtensions.GetValidOptions("Seleccione el Id del Zapato para actualizar el Stock:", listaZapatos);
+            var shoeId = Convert.ToInt32(selectShoeId);
+            var shoe = servicioshoe?.GetShoeId(shoeId);
+
+            if (shoe == null)
+            {
+                Console.WriteLine("Zapato no encontrado");
             }
 
             var quantityInStock = ConsoleExtensions.ReadInt("Ingrese el Stock:", 1, 10000);
@@ -315,7 +315,6 @@ namespace TPdeEFCore01.Consola
                 size = size,
                 QuantityInStock = quantityInStock
             };
-
             return shoeSize;
         }
 
@@ -414,7 +413,7 @@ namespace TPdeEFCore01.Consola
             if (ListZapatos.Count > 0)
             {
                 MostrarListaZapatos(ListZapatos);
-                var opcionZapato = ConsoleExtensions.GetValidOptions("Seleccione un Zapato:",
+                var opcionZapato = ConsoleExtensions.GetValidOptions("Seleccione el Id de un Zapato para Agregar Talle:",
                 ListZapatos.Select(s => s.ShoeId.ToString()).ToList());
 
                 var ZapatoSeleccionado = ZapatoService.GetShoePorId(Convert.ToInt32(opcionZapato));
@@ -435,7 +434,7 @@ namespace TPdeEFCore01.Consola
                     }
                     Console.WriteLine();
 
-                    var opcion = ConsoleExtensions.GetValidOptions("Seleccione un Talle (N para nuevo):",
+                    var opcion = ConsoleExtensions.GetValidOptions("Seleccione el Id de un Talle (N para nuevo):",
                      listaTalles.Select(s => s.SizeId.ToString()).Concat(new[] { "N" }).ToList());
 
                     if (opcion == "N")
@@ -563,14 +562,16 @@ namespace TPdeEFCore01.Consola
             }
             Console.Clear();
             Console.WriteLine($"Zapato: {shoe.Description}-{shoe.Model}");
-            var tabla = new ConsoleTable("SizeId", "SizeNumber", "Precio");
+
+            var tabla = new ConsoleTable("SizeId", "SizeNumber", "Precio","Stock");
             if (shoe.shoeSizes != null)
             {
                 foreach (var item in shoe.shoeSizes)
                 {
                     tabla.AddRow(item.size.SizeId,
                         item.size.SizeNumber,
-                        item.shoe.Price);
+                        item.shoe.Price,
+                        item.QuantityInStock);
                 }
                 tabla.Options.EnableCount = false;
                 tabla.Write();

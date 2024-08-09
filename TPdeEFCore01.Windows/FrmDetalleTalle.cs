@@ -1,4 +1,5 @@
 ﻿using TPdeEFCore01.Entidades;
+using TPdeEFCore01.Servicios.Interfaces;
 using TPdeEFCore01.Windows.Helpers;
 
 namespace TPdeEFCore01.Windows
@@ -6,10 +7,14 @@ namespace TPdeEFCore01.Windows
     public partial class FrmDetalleTalle : Form
     {
         private List<SizeStockDto>? Talles;
+        private readonly IShoeServicio _servicio;
 
-        public FrmDetalleTalle()
+        private readonly IServiceProvider _serviceProvider;
+        public FrmDetalleTalle(IShoeServicio servicio, IServiceProvider serviceProvider)
         {
             InitializeComponent();
+            _servicio = servicio;
+            _serviceProvider = serviceProvider;
         }
 
         public void SetDatos(List<SizeStockDto> talles)
@@ -24,5 +29,6 @@ namespace TPdeEFCore01.Windows
                 GridHelper.MostrarDatosEnGrilla(Talles, DatosdataGridView);
             }
         }
+       
     }
 }

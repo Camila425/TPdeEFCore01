@@ -54,7 +54,7 @@
             BarramenuStrip.Items.AddRange(new ToolStripItem[] { MarcasiconMenuItem, GenerosiconMenuItem, DeportesiconMenuItem, ColoresiconMenuItem, ZapatosiconMenuItem, TallesiconMenuItem, SaliriconMenuItem });
             BarramenuStrip.Location = new Point(0, 47);
             BarramenuStrip.Name = "BarramenuStrip";
-            BarramenuStrip.Size = new Size(805, 73);
+            BarramenuStrip.Size = new Size(847, 73);
             BarramenuStrip.TabIndex = 0;
             BarramenuStrip.Text = "menuStrip1";
             // 
@@ -164,7 +164,7 @@
             TitulomenuStrip.Location = new Point(0, 0);
             TitulomenuStrip.Name = "TitulomenuStrip";
             TitulomenuStrip.RightToLeft = RightToLeft.Yes;
-            TitulomenuStrip.Size = new Size(805, 47);
+            TitulomenuStrip.Size = new Size(847, 47);
             TitulomenuStrip.TabIndex = 1;
             TitulomenuStrip.Text = "menuStrip2";
             // 
@@ -188,7 +188,7 @@
             Contenedorpanel.Dock = DockStyle.Fill;
             Contenedorpanel.Location = new Point(0, 120);
             Contenedorpanel.Name = "Contenedorpanel";
-            Contenedorpanel.Size = new Size(805, 427);
+            Contenedorpanel.Size = new Size(847, 427);
             Contenedorpanel.TabIndex = 2;
             // 
             // pictureBox1
@@ -197,7 +197,7 @@
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
             pictureBox1.Location = new Point(3, 3);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(801, 421);
+            pictureBox1.Size = new Size(841, 421);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
@@ -206,7 +206,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(805, 547);
+            ClientSize = new Size(847, 547);
             ControlBox = false;
             Controls.Add(Contenedorpanel);
             Controls.Add(BarramenuStrip);

@@ -242,6 +242,19 @@ namespace TPdeEFCore01.Servicios.Servicios
             return _repository.GetShoeId(ShoeId);
         }
 
+        public Shoe GetShoeId()
+        {
+            try
+            {
+                return _repository.GetShoeId();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         public Shoe? GetShoePorId(int shoeId, bool IncluyeSize = false)
         {
             try
@@ -254,12 +267,27 @@ namespace TPdeEFCore01.Servicios.Servicios
                 throw;
             }
         }
+      
+
 
         public ShoeSizes? GetShoeSizeId(int shoeId, int sizeId)
         {
             try
             {
                 return _repository.GetShoeSizeId(shoeId, sizeId);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public Size GetSizeIdShoe()
+        {
+            try
+            {
+                return _repository.GetSizeIdShoe();
             }
             catch (Exception)
             {
@@ -286,6 +314,7 @@ namespace TPdeEFCore01.Servicios.Servicios
             return _repository.GetTallesPorZapato(shoeId);
         }
 
+      
 
         public void Guardar(Shoe Shoe)
         {
@@ -345,5 +374,8 @@ namespace TPdeEFCore01.Servicios.Servicios
                 throw;
             }
         }
+
+       
+     
     }
 }

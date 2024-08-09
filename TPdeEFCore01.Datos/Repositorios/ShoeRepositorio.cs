@@ -320,8 +320,9 @@ namespace TPdeEFCore01.Datos.Repositorios
             var Query = _dbContext.shoes;
             if (incluyeSize)
             {
-                return Query.Include(s => s.shoeSizes).ThenInclude(ss => ss.size)
-                             .FirstOrDefault(s => s.ShoeId == shoeId);
+                return Query.Include(s => s.shoeSizes)
+                            .ThenInclude(ss => ss.size)
+                            .FirstOrDefault(s => s.ShoeId == shoeId);
             }
             return Query.FirstOrDefault(s => s.ShoeId == shoeId);
         }
@@ -400,6 +401,16 @@ namespace TPdeEFCore01.Datos.Repositorios
         {
             return _dbContext.shoeSizes.FirstOrDefault(s => s.ShoeId == shoeId && s.SizeId == sizeId);
 
+        }
+
+        public Size GetSizeIdShoe()
+        {
+            return _dbContext.Sizes.FirstOrDefault();
+        }
+
+        public Shoe GetShoeId()
+        {
+            return _dbContext.shoes.FirstOrDefault();
         }
     }
 }

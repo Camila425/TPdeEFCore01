@@ -33,5 +33,7 @@ namespace TPdeEFCore01.Datos.Interfaces
         bool ExisteShoeSize(ShoeSizes shoeSize);
         void AgregarStock(ShoeSizes shoeSizes);
         ShoeSizes? GetShoeSizeId(int shoeId, int sizeId);
+        Size GetSizeIdShoe();
+        Shoe GetShoeId();
     }
 }

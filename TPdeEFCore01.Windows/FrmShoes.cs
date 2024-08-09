@@ -488,8 +488,8 @@ namespace TPdeEFCore01.Windows
                 return;
             }
 
-            
-            FrmDetalleTalle frm = new FrmDetalleTalle()
+
+            FrmDetalleTalle frm = new FrmDetalleTalle(_servicio, _serviceProvider)
             {
                 Text = $"Talles del Zapato - {shoeListDto.Descripcion} - {shoeListDto.Model}"
             };
@@ -637,6 +637,49 @@ namespace TPdeEFCore01.Windows
 
         }
 
+        private void AgregarStocktoolStripButton_Click(object sender, EventArgs e)
+        {
+            if (DatosdataGridView.SelectedRows.Count == 0)
+            {
+                return;
+            }
+            var r = DatosdataGridView.SelectedRows[0];
+            if (r.Tag is null)
+            {
+                return;
+            }
+            var SizeStock = (ShoeListDto)r.Tag;
 
+            FrmAgregarStock frm = new FrmAgregarStock(_serviceProvider) { Text = "Agregar Stock" };
+            DialogResult dr = frm.ShowDialog(this);
+            if (dr == DialogResult.Cancel)
+            {
+                return;
+            }
+            try
+            {
+                var shoe = _servicio.GetShoeId(SizeStock.ShoeId);
+                SizeStock.ShoeId = shoe.ShoeId;
+
+               Entidades.Size? talle = frm.GetTalle();
+                var shoeSize = new ShoeSizes
+                {
+                    ShoeId = SizeStock.ShoeId,
+                    SizeId = talle.SizeId,
+                    QuantityInStock = frm.CantidadStock
+                };
+                
+                _servicio.GuardarStock(shoeSize);
+
+                MessageBox.Show("Stock Agregado!!", "Mensaje", MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error al Agregar Stock!!", "Mensaje", MessageBoxButtons.OK,
+                MessageBoxIcon.Error);
+                throw;
+            }
+        }
     }
 }

@@ -31,5 +31,7 @@ namespace TPdeEFCore01.Servicios.Interfaces
         bool ExisteShoeSize(ShoeSizes ShoeSizes);
         void GuardarStock(ShoeSizes zapato);
         ShoeSizes? GetShoeSizeId(int shoeId, int sizeId);
+        Size GetSizeIdShoe();
+        Shoe GetShoeId();
     }
 }

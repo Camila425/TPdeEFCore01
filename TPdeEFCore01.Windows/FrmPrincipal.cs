@@ -76,7 +76,9 @@ namespace TPdeEFCore01.Windows
 
         private void ZapatosiconMenuItem_Click(object sender, EventArgs e)
         {
-            AbrirFormulario((IconMenuItem)sender, new FrmShoes(_serviceProvider.GetService<IShoeServicio>(), _serviceProvider));
+            AbrirFormulario((IconMenuItem)sender,
+                new FrmShoes(_serviceProvider.GetService<IShoeServicio>()
+                , _serviceProvider));
         }
 
         private void TallesiconMenuItem_Click(object sender, EventArgs e)

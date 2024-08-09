@@ -49,6 +49,7 @@
             GeneroYDeportetoolStripButton = new ToolStripButton();
             TallestoolStripButton = new ToolStripButton();
             AsignarTalletoolStripButton = new ToolStripButton();
+            AgregarStocktoolStripButton = new ToolStripButton();
             EliminarTalletoolStripButton = new ToolStripButton();
             OrdentoolStripButton = new ToolStripDropDownButton();
             aZToolStripMenuItem = new ToolStripMenuItem();
@@ -102,16 +103,16 @@
             splitContainer1.Panel2.Controls.Add(PaginascomboBox);
             splitContainer1.Panel2.Controls.Add(label1);
             splitContainer1.Panel2.Controls.Add(DatosdataGridView);
-            splitContainer1.Size = new Size(808, 396);
+            splitContainer1.Size = new Size(895, 396);
             splitContainer1.SplitterDistance = 66;
             splitContainer1.TabIndex = 2;
             // 
             // toolStrip1
             // 
-            toolStrip1.Items.AddRange(new ToolStripItem[] { NuevotoolStripButton, BorrartoolStripButton, EditartoolStripButton, toolStripSeparator1, FltrarrtoolStripButton, ActualizartoolStripButton, BuscarMarcaEntreDosPreciostoolStripButton, toolStripSeparator2, BuscarMaryDeptoolStripButton, GeneroYDeportetoolStripButton, TallestoolStripButton, AsignarTalletoolStripButton, EliminarTalletoolStripButton, OrdentoolStripButton });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { NuevotoolStripButton, BorrartoolStripButton, EditartoolStripButton, toolStripSeparator1, FltrarrtoolStripButton, ActualizartoolStripButton, BuscarMarcaEntreDosPreciostoolStripButton, toolStripSeparator2, BuscarMaryDeptoolStripButton, GeneroYDeportetoolStripButton, TallestoolStripButton, AsignarTalletoolStripButton, AgregarStocktoolStripButton, EliminarTalletoolStripButton, OrdentoolStripButton });
             toolStrip1.Location = new Point(0, 0);
             toolStrip1.Name = "toolStrip1";
-            toolStrip1.Size = new Size(808, 58);
+            toolStrip1.Size = new Size(895, 58);
             toolStrip1.TabIndex = 0;
             toolStrip1.Text = "toolStrip1";
             // 
@@ -276,6 +277,17 @@
             AsignarTalletoolStripButton.TextImageRelation = TextImageRelation.ImageAboveText;
             AsignarTalletoolStripButton.Click += AsignarTalletoolStripButton_Click;
             // 
+            // AgregarStocktoolStripButton
+            // 
+            AgregarStocktoolStripButton.Image = Properties.Resources.tasklist_36px;
+            AgregarStocktoolStripButton.ImageScaling = ToolStripItemImageScaling.None;
+            AgregarStocktoolStripButton.ImageTransparentColor = Color.Magenta;
+            AgregarStocktoolStripButton.Name = "AgregarStocktoolStripButton";
+            AgregarStocktoolStripButton.Size = new Size(64, 55);
+            AgregarStocktoolStripButton.Text = "Agr-Stock";
+            AgregarStocktoolStripButton.TextImageRelation = TextImageRelation.ImageAboveText;
+            AgregarStocktoolStripButton.Click += AgregarStocktoolStripButton_Click;
+            // 
             // EliminarTalletoolStripButton
             // 
             EliminarTalletoolStripButton.Image = (Image)resources.GetObject("EliminarTalletoolStripButton.Image");
@@ -410,7 +422,7 @@
             DatosdataGridView.Name = "DatosdataGridView";
             DatosdataGridView.ReadOnly = true;
             DatosdataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            DatosdataGridView.Size = new Size(800, 284);
+            DatosdataGridView.Size = new Size(892, 284);
             DatosdataGridView.TabIndex = 0;
             // 
             // ColDescripcion
@@ -480,7 +492,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(808, 396);
+            ClientSize = new Size(895, 396);
             Controls.Add(splitContainer1);
             Name = "FrmShoes";
             Text = "FrmShoes";
@@ -526,14 +538,6 @@
         private ToolStripButton GeneroYDeportetoolStripButton;
         private ToolStripButton ActualizartoolStripButton;
         private ToolStripButton BuscarMarcaEntreDosPreciostoolStripButton;
-        private DataGridViewTextBoxColumn ColDescripcion;
-        private DataGridViewTextBoxColumn ColBrand;
-        private DataGridViewTextBoxColumn ColGenre;
-        private DataGridViewTextBoxColumn ColSport;
-        private DataGridViewTextBoxColumn ColColor;
-        private DataGridViewTextBoxColumn ColModelo;
-        private DataGridViewTextBoxColumn ColPrecio;
-        private DataGridViewTextBoxColumn ColQuantityInStock;
         private ToolStripButton TallestoolStripButton;
         private ToolStripButton AsignarTalletoolStripButton;
         private ToolStripButton EliminarTalletoolStripButton;
@@ -542,5 +546,14 @@
         private ToolStripMenuItem zAToolStripMenuItem;
         private ToolStripMenuItem menorPrecioToolStripMenuItem;
         private ToolStripMenuItem mayorPrecioToolStripMenuItem;
+        private ToolStripButton AgregarStocktoolStripButton;
+        private DataGridViewTextBoxColumn ColDescripcion;
+        private DataGridViewTextBoxColumn ColBrand;
+        private DataGridViewTextBoxColumn ColGenre;
+        private DataGridViewTextBoxColumn ColSport;
+        private DataGridViewTextBoxColumn ColColor;
+        private DataGridViewTextBoxColumn ColModelo;
+        private DataGridViewTextBoxColumn ColPrecio;
+        private DataGridViewTextBoxColumn ColQuantityInStock;
     }
 }
